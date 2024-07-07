@@ -1,0 +1,45 @@
+/* Home.css */
+
+.swiper-container {
+    width: 80%; /* Adjusted width to 80% of the container */
+    margin: 0 auto; /* Centering the swiper container horizontally */
+    background-color: #ffd89b; /* Background color for the swiper container */
+    border-radius: 8px; /* Rounded corners for better aesthetics */
+    overflow: hidden; /* Ensure content within swiper container does not overflow */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle gray box shadow */
+  }
+  
+  .swiper-slide {
+    text-align: center; /* Center align content within each slide */
+    padding: 20px; /* Add padding around each slide content */
+  }
+  
+  .swiper-pagination {
+    margin-top: 20px; /* Adding space between slides and pagination */
+    text-align: center; /* Center align pagination */
+  }
+  
+  .swiper-button-prev,
+  .swiper-button-next {
+    color: #ffffff; /* Button color */
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background for buttons */
+    width: 30px; /* Button width */
+    height: 30px; /* Button height */
+    border-radius: 50%; /* Rounded button shape */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+  }
+  
+  .swiper-button-prev {
+    left: 10px; /* Positioning left button */
+  }
+  
+  .swiper-button-next {
+    right: 10px; /* Positioning right button */
+  }
+  
