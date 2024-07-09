@@ -51,6 +51,17 @@ function GeneratePage() {
     setFormErrors({ ...formErrors, [selectedOption]: { ...formErrors[selectedOption], [name]: null } });
   };
 
+  const handleRadioChange = (e, { value }) => {
+    const updatedFormData = {
+      ...formsData,
+      forms: {
+        ...formsData.forms,
+        requestedType: value
+      }
+    };
+    setFormsData(updatedFormData);
+  };
+
   const handleCheckboxChange = (e, { name, checked }) => {
     const updatedFormData = {
       ...formsData,
@@ -74,11 +85,32 @@ function GeneratePage() {
     if (numberOfQuestions < 0) {
       errors.numberOfQuestions = 'Number of questions cannot be less than zero.';
     }
-    if (numberOfQuestions == 0) {
+    if (numberOfQuestions === 0) {
       errors.numberOfQuestions = 'Number of questions must be greater than zero.';
     }
     setFormErrors({ ...formErrors, [selectedOption]: errors });
     return Object.keys(errors).length === 0; // Return true if no errors found
+  };
+
+  const resetForm = () => {
+    setSelectedOption(null);
+    setFormsData({
+      forms: {
+        title: '',
+        content: '',
+        isPublic: false,
+        numberOfQuestions: 0,
+        requestedType: 'QUIZ'
+      },
+      docs: {
+        title: '',
+        content: '',
+        isPublic: false,
+        requestedType: 'DOCS'
+      }
+    });
+    setFormErrors({ forms: {}, docs: {} });
+    setLoading(false);
   };
 
   const handleFormsSubmit = async () => {
@@ -98,6 +130,7 @@ function GeneratePage() {
         setModalOpen(true);
       } finally {
         setLoading(false); // Stop loading
+        resetForm(); // Reset the form after submission
       }
     }, 2000); // Simulate a delay of 2 seconds
   };
@@ -119,6 +152,7 @@ function GeneratePage() {
         setModalOpen(true);
       } finally {
         setLoading(false); // Stop loading
+        resetForm(); // Reset the form after submission
       }
     }, 2000); // Simulate a delay of 2 seconds
   };
@@ -188,7 +222,7 @@ function GeneratePage() {
                 name="requestedType"
                 value="QUIZ"
                 checked={formsData.forms.requestedType === 'QUIZ'}
-                onChange={() => handleOptionClick('forms')}
+                onChange={handleRadioChange}
               />
             </Form.Field>
             <Form.Field>
@@ -197,7 +231,7 @@ function GeneratePage() {
                 name="requestedType"
                 value="SURVEY"
                 checked={formsData.forms.requestedType === 'SURVEY'}
-                onChange={() => handleOptionClick('forms')}
+                onChange={handleRadioChange}
               />
             </Form.Field>
             <Button primary onClick={handleFormsSubmit}>Generate for Forms</Button>

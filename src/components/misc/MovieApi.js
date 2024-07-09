@@ -14,7 +14,9 @@ export const movieApi = {
   addMovie,
   generateForms, // Adding new function
   generateDocs,   // Adding new function
-  getHistory
+  getDocsHistory,
+  getFormsHistory,
+  getFailedRecordsHistory
 }
 
 function authenticate(username, password) {
@@ -89,8 +91,8 @@ function generateDocs(user, userEmail, formData) {
   })
 }
 
-async function getHistory(user, userEmail) {  
-  const response = await instance.post('/api/history/fetch-data', null, {
+async function getDocsHistory(user, userEmail) {  
+  const response = await instance.post('/api/history/fetch-data/docs', null, {
     params: { userEmail: userEmail },
     headers: { 'Authorization': bearerAuth(user) }
   })
@@ -98,6 +100,24 @@ async function getHistory(user, userEmail) {
   return response // Assuming response.data is the list of GoogleApiRecord
 }
 
+
+async function getFormsHistory(user, userEmail) {  
+  const response = await instance.post('/api/history/fetch-data/forms', null, {
+    params: { userEmail: userEmail },
+    headers: { 'Authorization': bearerAuth(user) }
+  })
+  console.log(response)
+  return response // Assuming response.data is the list of GoogleApiRecord
+}
+
+async function getFailedRecordsHistory(user, userEmail) {  
+  const response = await instance.post('/api/history/fetch-data/failed', null, {
+    params: { userEmail: userEmail },
+    headers: { 'Authorization': bearerAuth(user) }
+  })
+  console.log(response)
+  return response // Assuming response.data is the list of GoogleApiRecord
+}
 // -- Axios
 
 const instance = axios.create({
